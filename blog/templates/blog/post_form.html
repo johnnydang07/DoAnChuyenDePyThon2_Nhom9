@@ -1,0 +1,35 @@
+    {% extends "blog/base.html" %}
+    {% load crispy_forms_tags %}
+
+    {% block title %}Post{% endblock %}
+
+    {% block content %}
+    <div class="m-auto w-100 container">
+    <div class="content-section">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">New Post</legend>
+                <link href="/static/ckeditor/ckeditor.css" media="all" rel="stylesheet">
+<script src="/static/ckeditor/ckeditor-init.js" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
+<script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+                <p>
+    <label for="id_title">Caption:</label>
+    <input type="text" name="title" maxlength="150" required="" id="id_title" placeholder="{{user.last_name}} ơi, bạn đang nghĩ gì?">
+    
+  </p>
+  
+  <p>
+    <label for="id_image">Image:</label>
+    <input type="file" name="image" id="id_image">  
+  </p>
+    </fieldset>
+            <div class="form-group">
+                <button class="btn btn-info" type="submit">Post</button>
+                <a class="btn btn-danger" href="{% url 'blog-home' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+    </div>
+    {% endblock %}
+

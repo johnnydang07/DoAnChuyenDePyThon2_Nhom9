@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups</title>
+</head>
+
+<body>
+   
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <a href="{% url 'groups:add_groups' %}" title>News Group</a>
+    <a href="/" title>Home</a>
+
+    {% for group in ups %}
+    <!-- post header-->
+    <div class="flex justify-between items-center px-4 py-3">
+        <div class="flex flex-1 items-center space-x-4">
+           
+           
+            <p>{{up.created_at}}</p>
+        </div>
+        <figure>
+            <a href="time-line.html" title><img style=" width: 100px;height: 100px;" src="/media/{{group.avatar}}"
+                    alt></a>
+            <span class="block capitalize font-semibold "> {{ group.name }}</span>
+        </figure>
+
+        <div>
+
+            <a href="#"> <i
+                    class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i>
+            </a>
+            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  "
+                uk-drop="mode: hover;pos: top-right">
+
+                <ul class="space-y-1">
+
+                    <span>{{ group.description_html|safe }}</span>
+                    <em>{{ group.members.count }}</em> member{{ group.members.count|pluralize }}
+                    <br>
+                    <br>
+                    {% if user in group.members.all %}
+                    <a href="{% url 'groups:leave' slug=group.slug %}" title="" class="add-butn" data-ripple="">Leave</a>
+                    {% else %}
+                    <a href="{% url 'groups:join' slug=group.slug %}" title="" class="add-butn" data-ripple="">Join now</a>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <p style="margin-left: 10px">{{up.caption}}</p>
+
+    {% endfor %}
+</body>
+
+</html>
+
+<style>
+    body {
+        background: #b0b3b8;
+        height: 2000px;
+    }
+    
+</style>
